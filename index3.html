@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SISAC - Sistema de Atalhos de Consulta</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <style>
+    :root {
+      --primary: #004a8d;
+      --secondary: #f8f9fa;
+      --hover: #e9ecef;
+      --dark-bg: #1c1c1c;
+      --light-bg: #f5f5f5;
+      --font: 'Roboto', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--light-bg);
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    header {
+      background: var(--primary);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    h1, h2 {
+      margin: 0.5rem 0;
+    }
+
+    .developer-info {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .section {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .section h2 {
+      display: flex;
+      align-items: center;
+      font-size: 1.3rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5rem;
+      color: var(--primary);
+      gap: 0.5rem;
+    }
+
+    .link-list {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      background: var(--secondary);
+      padding: 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid #ccc;
+      transition: all 0.3s ease;
+    }
+
+    .link-item i {
+      margin-right: 1rem;
+      color: var(--primary);
+    }
+
+    .link-item:hover {
+      background: var(--hover);
+      transform: scale(1.02);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .access-warning {
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 8px;
+      margin: 2rem 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      border-top: 1px solid #ccc;
+      padding: 1.5rem 1rem;
+      margin-top: 2rem;
+    }
+
+    .legal-compliance {
+      font-size: 0.85rem;
+      color: #444;
+      margin-top: 0.5rem;
+    }
+
+    /* Dark Mode Toggle */
+    .toggle-dark {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .dark-mode {
+      background: var(--dark-bg);
+      color: white;
+    }
+
+    .dark-mode .section {
+      background: #2c2c2c;
+      color: white;
+    }
+
+    .dark-mode .link-item {
+      background: #333;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .link-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .link-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-dark" onclick="toggleDarkMode()">Modo Escuro</button>
+
+  <header>
+    <h1>SISAC - Sistema de Atalhos de Consulta</h1>
+  </header>
+
+  <div class="developer-info">Sistema desenvolvido por SD PM MIKAEL - 1ª CIPM</div>
+
+  <main class="container">
+    <section class="section">
+      <h2><i class="fas fa-search"></i> Consultas Online</h2>
+      <div class="link-list">
+        <a href="http://consultasigap.sistemas.pm.ba.gov.br/index.php" class="link-item" target="_blank"><i class="fas fa-file-alt"></i>Consulta CRARF</a>
+        <a href="http://www.bycalleia.com.br/buscar/" class="link-item" target="_blank"><i class="fas fa-shield-alt"></i>Consulta de Armas</a>
+        <a href="https://portalbnmp.cnj.jus.br/" class="link-item" target="_blank"><i class="fas fa-gavel"></i>Banco Nacional de Mandados</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-tools"></i> Sistemas PMBA</h2>
+      <div class="link-list">
+        <a href="https://rhbahia.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-users-cog"></i>RH Bahia</a>
+        <a href="http://intranet.pm.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-network-wired"></i>Intranet PMBA</a>
+        <a href="http://www.pm.ba.gov.br/index.php?option=com_phocadownload&view=section&id=26&Itemid=1089" class="link-item" target="_blank"><i class="fas fa-file-pdf"></i>BGO PMBA</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-shield-alt"></i> Segurança Pública</h2>
+      <div class="link-list">
+        <a href="https://www.delegaciadigital.ssp.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-digital-tachograph"></i>Delegacia Digital</a>
+        <a href="http://www.portalssp.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-portrait"></i>Portal SSP</a>
+        <a href="http://desaparecidos.policiacivil.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-search-location"></i>Pessoas Desaparecidas</a>
+        <a href="https://disquedenuncia.ssp.ba.gov.br/baralho-do-crime/" class="link-item" target="_blank"><i class="fas fa-id-card"></i>Baralho do Crime</a>
+      </div>
+    </section>
+
+    <div class="access-warning">
+      ⚠ ACESSO MONITORADO - USO EXCLUSIVO PARA AGENTES DE SEGURANÇA CREDENCIADOS
+    </div>
+  </main>
+
+  <footer>
+    <p>Criado em 06/12/2024 | Atualizado em <span id="updateDate"></span></p>
+    <div class="legal-compliance">
+      Em conformidade com a LGPD (Lei nº 13.709/2018) e o Marco Civil da Internet (Lei nº 12.965/2014).
+    </div>
+  </footer>
+
+  <script>
+    // Data de atualização
+    const options = { day: '2-digit', month: 'long', year: 'numeric' };
+    document.getElementById('updateDate').textContent = new Date().toLocaleDateString('pt-BR', options);
+
+    // Confirmação de links externos
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+      link.addEventListener('click', e => {
+        const confirmLeave = confirm(`Você está prestes a sair do SISAC e acessar:\n${link.href}\nDeseja continuar?`);
+        if (!confirmLeave) e.preventDefault();
+      });
+    });
+
+    // Modo escuro
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+  </script>
+</body>
+</html>
