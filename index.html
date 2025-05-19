@@ -2,369 +2,653 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SISAC - Sistema de Atalhos de Consulta</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Sistema de Atalhos de Consulta para agentes de segurança pública">
+  <title>SISAC - Sistema de Atalhos de Consulta Profissional</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #004a8d;
-      --secondary: #f8f9fa;
-      --hover: #e9ecef;
-      --dark-bg: #1c1c1c;
-      --light-bg: #f5f5f5;
-      --font: 'Open Sans', sans-serif;
+      --primary-color: #0056b3; /* Um azul mais sóbrio e profissional */
+      --primary-color-darker: #00418a;
+      --primary-color-lighter: #e6f0ff;
+      --secondary-color: #6c757d; /* Cinza para texto secundário */
+      --accent-color: #007bff; /* Azul vibrante para detalhes e hovers */
+      --background-color: #f8f9fa; /* Fundo principal suave */
+      --surface-color: #ffffff; /* Cor de superfície para cards, etc. */
+      --text-color: #212529; /* Cor de texto principal */
+      --text-color-light: #ffffff;
+      --border-color: #dee2e6;
+      --success-color: #28a745;
+      --warning-color: #ffc107;
+      --warning-text-color: #856404;
+      --warning-bg-color: #fff3cd;
+      --danger-color: #dc3545;
+
+      --font-primary: 'Roboto', 'Open Sans', sans-serif;
+      --font-secondary: 'Open Sans', sans-serif;
+
+      --border-radius-sm: 4px;
+      --border-radius-md: 8px;
+      --border-radius-lg: 12px;
+
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 10px rgba(0,0,0,0.1);
+      --shadow-lg: 0 8px 25px rgba(0,0,0,0.15);
+
+      --transition-fast: all 0.2s ease-in-out;
+      --transition-medium: all 0.3s ease-in-out;
+    }
+
+    /* Reset e Estilos Base */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 100%; /* 16px base */
     }
 
     body {
-      margin: 0;
-      font-family: var(--font);
-      background: var(--light-bg);
-      color: #333;
-      transition: background 0.3s, color 0.3s;
+      font-family: var(--font-primary);
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      font-size: clamp(0.875rem, 1.5vw + 0.5rem, 1rem); /* 14px a 16px */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    header {
-      background: var(--primary);
-      color: white;
-      padding: 2rem 1rem;
+    /* Cabeçalho */
+    .site-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-darker) 100%);
+      color: var(--text-color-light);
+      padding: 2rem 1rem 4rem; /* Mais espaço para um visual moderno */
       text-align: center;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 1rem;
+    .site-header::before { /* Elemento decorativo sutil */
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+      opacity: 0.5;
     }
 
-    h1, h2 {
-      margin: 0.5rem 0;
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem; /* Ajustado */
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .logo-icon {
+      font-size: 2.8rem; /* Maior */
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+    }
+
+    .site-header h1 {
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .system-name {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 400;
+      margin-top: 0.25rem;
     }
 
     .developer-info {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 1.5rem;
+      padding: 0.5rem;
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: var(--border-radius-sm);
+      display: inline-block;
     }
 
-    .section {
-      background: white;
-      border-radius: 10px;
-      padding: 1.5rem;
-      margin: 1rem 0;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    /* Conteúdo Principal */
+    .main-container {
+      max-width: 1200px;
+      margin: -2rem auto 2rem auto; /* Efeito de sobreposição com o header */
+      padding: 0 1rem;
+      position: relative; /* Para o efeito de sobreposição */
+      z-index: 10;
     }
 
-    .section h2 {
+    /* Seções */
+    .content-section {
+      background: var(--surface-color);
+      border-radius: var(--border-radius-lg); /* Bordas mais arredondadas */
+      padding: 2rem 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .content-section h2 {
       display: flex;
       align-items: center;
-      font-size: 1.3rem;
-      border-bottom: 2px solid #eee;
-      padding-bottom: 0.5rem;
-      color: var(--primary);
+      gap: 0.8rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color-lighter);
+      padding-bottom: 0.8rem;
+      margin-bottom: 1.5rem;
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+      font-weight: 700;
+    }
+    .content-section h2 i {
+      font-size: 1.4rem; /* Ícone do título um pouco maior */
+    }
+
+    /* Lista de Links (Cards) */
+    .link-grid {
+      display: grid;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      background: var(--surface-color);
+      padding: 1.25rem;
+      border-radius: var(--border-radius-md);
+      text-decoration: none;
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      transition: var(--transition-medium);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-card:hover,
+    .link-card:focus-within { /* :focus-within para acessibilidade */
+      background: var(--primary-color-lighter);
+      border-color: var(--accent-color);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px) scale(1.01);
+      z-index: 1; /* Para que a sombra não seja cortada por outros cards */
+    }
+    .link-card:focus-within {
+      outline: 2px solid var(--accent-color);
+      outline-offset: 2px;
+    }
+
+
+    .link-card__icon {
+      margin-right: 1.25rem;
+      color: var(--primary-color);
+      font-size: 1.5rem; /* Ícones maiores e mais destacados */
+      min-width: 30px;
+      text-align: center;
+      transition: var(--transition-fast);
+    }
+    .link-card:hover .link-card__icon,
+    .link-card:focus-within .link-card__icon {
+      color: var(--accent-color);
+      transform: scale(1.1);
+    }
+
+    .link-card__text {
+      flex-grow: 1;
+      font-weight: 500;
+    }
+
+    /* Tooltip */
+    .tooltip-container {
+      position: relative;
+      margin-left: auto; /* Empurra para a direita */
+      display: flex; /* Para alinhar o botão */
+      align-items: center;
+    }
+
+    .tooltip__trigger {
+      background: transparent;
+      border: none;
+      color: var(--secondary-color);
+      cursor: pointer;
+      font-size: 1.2rem;
+      width: 32px; /* Aumentado */
+      height: 32px; /* Aumentado */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: var(--transition-fast);
+    }
+
+    .tooltip__trigger:hover,
+    .tooltip__trigger:focus {
+      background: rgba(0,0,0,0.08);
+      color: var(--primary-color);
+      outline: none;
+    }
+
+    .tooltip__content {
+      position: absolute;
+      bottom: calc(100% + 12px); /* Mais espaçamento */
+      right: 50%;
+      transform: translateX(50%);
+      background: var(--text-color); /* Fundo escuro para contraste */
+      color: var(--text-color-light);
+      padding: 1rem;
+      border-radius: var(--border-radius-md);
+      box-shadow: var(--shadow-lg);
+      width: 300px; /* Ligeiramente maior */
+      opacity: 0;
+      visibility: hidden;
+      transform-origin: bottom center;
+      transition: opacity 0.2s ease-out, visibility 0.2s ease-out, transform 0.2s ease-out;
+      z-index: 1000;
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+
+    .tooltip__content::after { /* Seta do tooltip */
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -8px;
+        border-width: 8px;
+        border-style: solid;
+        border-color: var(--text-color) transparent transparent transparent;
+    }
+
+
+    .tooltip__content strong {
+      color: var(--warning-color); /* Amarelo para destaque */
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .tooltip__content em {
+      color: var(--primary-color-lighter);
+      font-style: normal;
+    }
+    
+    .tooltip__content br + em { /* Espaçamento antes de ênfases específicas */
+        margin-top: 0.5rem;
+        display: inline-block;
+    }
+
+    .tooltip-container.active .tooltip__content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(50%) translateY(0);
+    }
+
+    /* Aviso de Acesso */
+    .access-warning {
+      background: var(--warning-bg-color);
+      border-left: 5px solid var(--warning-color);
+      color: var(--warning-text-color);
+      padding: 1.5rem;
+      border-radius: var(--border-radius-md);
+      margin: 2.5rem 0;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
       gap: 0.5rem;
     }
 
-    .link-list {
-      display: grid;
-      gap: 1rem;
-      margin-top: 1rem;
+    .access-warning::before {
+      content: "\f071"; /* Ícone de aviso do Font Awesome */
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      font-size: 1.8rem; /* Maior */
+      margin-right: 0.8rem;
+      color: var(--warning-color);
+      align-self: flex-start; /* Alinha o ícone no topo se o texto quebrar */
+    }
+    
+    .access-warning-content {
+        display: flex;
+        flex-direction: column;
     }
 
-    .link-item {
-      display: flex;
-      align-items: center;
-      background: var(--secondary);
-      padding: 1rem;
-      border-radius: 8px;
-      text-decoration: none;
-      color: inherit;
-      border: 1px solid #ccc;
-      transition: all 0.3s ease;
+    .access-warning .title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      display: block;
     }
 
-    .link-item i {
-      margin-right: 1rem;
-      color: var(--primary);
-    }
-
-    .link-item:hover {
-      background: var(--hover);
-      transform: scale(1.02);
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .access-warning {
-      background: #fff3cd;
-      color: #856404;
-      border: 1px solid #ffeeba;
-      padding: 1rem;
-      text-align: center;
-      font-weight: bold;
-      border-radius: 8px;
-      margin: 2rem 0;
-    }
-
-    footer {
-      text-align: center;
+    .access-warning .subtitle {
       font-size: 0.9rem;
-      color: #666;
-      border-top: 1px solid #ccc;
-      padding: 1.5rem 1rem;
-      margin-top: 2rem;
+      font-weight: 500;
+      display: block;
+    }
+
+    /* Rodapé */
+    .site-footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--secondary-color);
+      border-top: 1px solid var(--border-color);
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      background-color: var(--surface-color);
     }
 
     .legal-compliance {
-      font-size: 0.85rem;
-      color: #444;
+      font-size: 0.8rem;
+      color: #777;
       margin-top: 0.5rem;
     }
 
-    .toggle-dark {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: var(--primary);
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      z-index: 999;
+    /* Botão "Voltar ao Topo" (Opcional, mas bom para UX) */
+    .back-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: var(--primary-color);
+        color: var(--text-color-light);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        text-decoration: none;
+        box-shadow: var(--shadow-md);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition-medium);
+        z-index: 100;
+    }
+    .back-to-top:hover {
+        background-color: var(--primary-color-darker);
+        transform: translateY(-2px);
+    }
+    .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
     }
 
-    .dark-mode {
-      background: var(--dark-bg);
-      color: white;
-    }
 
-    .dark-mode .section {
-      background: #2c2c2c;
-    }
-
-    .dark-mode .link-item {
-      background: #333;
-      color: white;
-      border-color: #555;
-    }
-
-    .dark-mode .link-item i {
-        color: #8ab4f8; /* Lighter blue for dark mode icons */
-    }
-
+    /* Responsividade */
     @media (max-width: 768px) {
-      .link-list {
+      .site-header {
+        padding: 1.5rem 1rem 3rem;
+      }
+      .main-container {
+        margin-top: -1.5rem; /* Ajuste para sobreposição menor */
+      }
+      .content-section {
+        padding: 1.5rem 1rem;
+      }
+      .link-grid {
         grid-template-columns: 1fr;
+      }
+      .tooltip__content {
+        width: clamp(240px, 90vw, 280px); /* Ajusta para não sair da tela */
+        right: 0;
+        transform: translateX(0);
+      }
+      .tooltip__content::after {
+        left: auto;
+        right: 20px; /* Posição da seta no mobile */
+        margin-left: 0;
+      }
+      .tooltip-container.active .tooltip__content {
+        transform: translateY(0);
+      }
+      .access-warning {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .access-warning::before {
+        align-self: center;
+        margin-bottom: 0.5rem;
       }
     }
 
     @media (min-width: 769px) {
-      .link-list {
-        grid-template-columns: repeat(2, 1fr);
+      .link-grid {
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); /* Grid mais flexível */
       }
-    }
-
-    /* CSS for Tooltip Functionality */
-    .link-item-wrapper {
-        display: flex;
-        align-items: center;
-        position: relative; 
-        background: var(--secondary);
-        padding: 1rem;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        transition: all 0.3s ease;
-    }
-    .link-item-wrapper:hover {
-        background: var(--hover);
-        transform: scale(1.02);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    .link-item-wrapper .link-item {
-        background: none;
-        padding: 0;
-        border: none;
-        flex-grow: 1; 
-        display: flex; 
-        align-items: center; 
-        text-decoration: none; 
-        color: inherit; 
-    }
-    .link-item-wrapper .link-item i {
-        margin-right: 1rem;
-        color: var(--primary);
-    }
-    .tooltip-icon {
-        margin-left: 10px;
-        color: var(--primary);
-        cursor: pointer;
-        font-size: 1.1em;
-    }
-    .custom-tooltip {
-        display: none;
-        position: absolute;
-        background-color: #ffffff;
-        color: #333333;
-        border: 1px solid #dddddd;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        z-index: 1000;
-        font-size: 0.875em;
-        max-width: 250px;
-        bottom: calc(100% + 8px); 
-        right: 0;
-        left: auto; 
-        transform: none; 
-        text-align: left;
-    }
-    .custom-tooltip::after { /* Arrow */
-        content: "";
-        position: absolute;
-        top: 100%; 
-        right: 15px; 
-        border-width: 6px;
-        border-style: solid;
-        border-color: #ffffff transparent transparent transparent; 
-    }
-
-    .dark-mode .link-item-wrapper {
-      background: #333333;
-      border-color: #555555;
-    }
-    .dark-mode .link-item-wrapper .link-item {
-        color: white;
-    }
-    .dark-mode .link-item-wrapper .link-item i {
-        color: #8ab4f8; 
-    }
-    .dark-mode .tooltip-icon {
-        color: #8ab4f8; 
-    }
-    .dark-mode .custom-tooltip {
-        background-color: #2c2c2c; 
-        color: #f0f0f0; 
-        border-color: #444444;
-    }
-    .dark-mode .custom-tooltip::after {
-        border-color: #2c2c2c transparent transparent transparent;
     }
   </style>
 </head>
 <body>
-  <button class="toggle-dark" onclick="toggleDarkMode()">Modo Escuro</button>
-
-  <header>
-    <h1>SISAC - Sistema de Atalhos de Consulta</h1>
+  <header class="site-header" role="banner">
+    <div class="logo-container">
+      <div class="logo">
+        <i class="fas fa-shield-alt logo-icon"></i> <h1>SISAC</h1>
+      </div>
+      <div class="system-name">SISTEMA DE ATALHOS DE CONSULTA</div>
+    </div>
+    <p class="developer-info">Desenvolvido por SD PM MIKAEL - 1ª CIPM</p>
   </header>
 
-  <div class="developer-info">Sistema desenvolvido por SD PM MIKAEL - 1ª CIPM</div>
-
-  <main class="container">
-    <section class="section">
-      <h2><i class="fas fa-search"></i>Consultas Online</h2>
-      <div class="link-list">
-        <a href="http://consultasigap.sistemas.pm.ba.gov.br/index.php" class="link-item" target="_blank"><i class="fas fa-file-alt"></i>Consulta CRARF</a>
-        <a href="https://consultapublicapje.tjba.jus.br/pje/ConsultaPublica/listView.seam" class="link-item" target="_blank"><i class="fas fa-file-signature"></i>Processos e Inquéritos</a>
-        <a href="https://servicos.dpf.gov.br/sinarm-internet/faces/publico/confirmarAutenticidadeDocumento/confAutenticidade.seam" class="link-item" target="_blank"><i class="fas fa-shield-alt"></i>Consulta de Arma de Fogo - SINARM</a>
-        <a href="https://portalbnmp.cnj.jus.br/" class="link-item" target="_blank"><i class="fas fa-gavel"></i>Mandados em Aberto</a>
-        <div class="link-item-wrapper">
-            <a href="https://www.consultaserialaparelho.com.br/public-web/home" class="link-item" target="_blank">
-                <i class="fas fa-mobile-alt"></i>Consultar Restrições de Celular
-            </a>
-            <i class="fas fa-question-circle tooltip-icon" onclick="toggleTooltip(\'imeiTooltip\', this)"></i>
-            <span id="imeiTooltip" class="custom-tooltip">Para encontrar o número IMEI do seu telefone, disque *#06# ou verifique as configurações do aparelho.</span>
-        </div>
-      </div>
+  <main class="main-container">
+    <section class="content-section" id="consultas-online-section" aria-labelledby="consultas-online-heading">
+      <h2 id="consultas-online-heading"><i class="fas fa-search-location"></i> Consultas Online</h2>
+      <ul class="link-grid">
+        <li>
+          <a href="https://www.consultaserialaparelho.com.br/public-web/home" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-mobile-screen-button"></i></span>
+            <span class="link-card__text">Consultar Restrições de Celular</span>
+            <div class="tooltip-container">
+              <button class="tooltip__trigger" aria-label="Informações sobre como encontrar o IMEI do celular" aria-expanded="false" aria-controls="tooltip-imei">
+                <i class="fas fa-question-circle"></i>
+              </button>
+              <div class="tooltip__content" id="tooltip-imei" role="tooltip">
+                <strong>Como encontrar o IMEI:</strong>
+                📱 <strong>*#06#</strong> - Disque no teclado do telefone.<br>
+                ⚙️ <strong>Configurações &gt; Sobre o dispositivo</strong><br>
+                📦 Verifique na caixa ou atrás da bateria.<br><br>
+                <em>iPhone:</em> Ajustes &gt; Geral &gt; Sobre<br>
+                <em>Samsung:</em> Config. &gt; Sobre o telefone<br>
+                <em>Xiaomi:</em> Config. &gt; Sobre o telefone &gt; Todas as especificações
+              </div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="http://consultasigap.sistemas.pm.ba.gov.br/index.php" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-file-alt"></i></span>
+            <span class="link-card__text">Consulta CRARF</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://consultapublicapje.tjba.jus.br/pje/ConsultaPublica/listView.seam" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-file-signature"></i></span>
+            <span class="link-card__text">Processos e Inquéritos (PJe TJBA)</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://servicos.dpf.gov.br/sinarm-internet/faces/publico/confirmarAutenticidadeDocumento/confAutenticidade.seam" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-shield-halved"></i></span> <span class="link-card__text">Consulta de Arma de Fogo - SINARM</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://portalbnmp.cnj.jus.br/" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-gavel"></i></span>
+            <span class="link-card__text">Mandados em Aberto (BNMP CNJ)</span>
+          </a>
+        </li>
+      </ul>
     </section>
 
-    <section class="section">
-      <h2><i class="fas fa-tools"></i>Sistemas PMBA</h2>
-      <div class="link-list">
-        <a href="https://rhbahia.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-users-cog"></i>RH Bahia</a>
-        <a href="http://intranet.pm.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-network-wired"></i>Intranet PMBA</a>
-        <a href="http://www.pm.ba.gov.br/index.php?option=com_phocadownload&view=section&id=26&Itemid=1089" class="link-item" target="_blank"><i class="fas fa-file-pdf"></i>BGO PMBA</a>
-        <a href="http://escala.sistemas.pm.ba.gov.br/consultaEscalaIndividual.jsf" class="link-item" target="_blank"><i class="fas fa-calendar-alt"></i>Escalas PMBA</a>
-      </div>
+    <section class="content-section" id="sistemas-pmba-section" aria-labelledby="sistemas-pmba-heading">
+      <h2 id="sistemas-pmba-heading"><i class="fas fa-cogs"></i> Sistemas PMBA</h2>
+      <ul class="link-grid">
+        <li>
+          <a href="https://rhbahia.ba.gov.br/" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-users-cog"></i></span>
+            <span class="link-card__text">RH Bahia</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://intranet.pm.ba.gov.br/" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-network-wired"></i></span>
+            <span class="link-card__text">Intranet PMBA</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://www.pm.ba.gov.br/category/pmba/publicacao/boletim-geral-ostensivo/" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-file-pdf"></i></span>
+            <span class="link-card__text">BGO PMBA</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://escala.sistemas.pm.ba.gov.br/consultaEscalaIndividual.jsf" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-calendar-alt"></i></span>
+            <span class="link-card__text">Escalas PMBA</span>
+          </a>
+        </li>
+      </ul>
     </section>
 
-    <section class="section">
-      <h2><i class="fas fa-shield-alt"></i>Segurança Pública</h2>
-      <div class="link-list">
-        <a href="https://www.delegaciadigital.ssp.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-digital-tachograph"></i>Delegacia Digital</a>
-        <a href="http://www.portalssp.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-portrait"></i>Portal SSP</a>
-        <a href="http://desaparecidos.policiacivil.ba.gov.br/" class="link-item" target="_blank"><i class="fas fa-search-location"></i>Pessoas Desaparecidas</a>
-        <a href="https://disquedenuncia.ssp.ba.gov.br/baralho-do-crime/" class="link-item" target="_blank"><i class="fas fa-id-card"></i>Baralho do Crime</a>
-      </div>
+    <section class="content-section" id="seguranca-publica-section" aria-labelledby="seguranca-publica-heading">
+      <h2 id="seguranca-publica-heading"><i class="fas fa-landmark"></i> Segurança Pública</h2> <ul class="link-grid">
+        <li>
+          <a href="https://www.delegaciadigital.ssp.ba.gov.br/" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-laptop-house"></i></span> <span class="link-card__text">Delegacia Digital SSP-BA</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://www.portalssp.ba.gov.br/" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-id-badge"></i></span> <span class="link-card__text">Portal SSP-BA</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://desaparecidos.policiacivil.ba.gov.br/" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-user-secret"></i></span> <span class="link-card__text">Pessoas Desaparecidas PC-BA</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://disquedenuncia.ssp.ba.gov.br/baralho-do-crime/" class="link-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-skull-crossbones"></i></span> <span class="link-card__text">Baralho do Crime SSP-BA</span>
+          </a>
+        </li>
+      </ul>
     </section>
 
-    <div class="access-warning">
-      ⚠ ACESSO MONITORADO - USO EXCLUSIVO PARA AGENTES DE SEGURANÇA PÚBLICA AUTORIZADOS
+    <div class="access-warning" role="alert">
+      <div class="access-warning-content">
+        <span class="title">ACESSO E USO MONITORADOS</span>
+        <span class="subtitle">Este sistema é de uso exclusivo para Agentes de Segurança Pública devidamente autorizados. Todas as atividades são registradas.</span>
+      </div>
     </div>
   </main>
 
-  <footer>
-    <p>Criado em 06/12/2024 | Atualizado em <span id="updateDate"></span></p>
+  <footer class="site-footer" role="contentinfo">
+    <p>&copy; <span id="currentYear"></span> SISAC - Todos os direitos reservados.</p>
     <div class="legal-compliance">
-      Em conformidade com a LGPD (Lei nº 13.709/2018) e o Marco Civil da Internet (Lei nº 12.965/2014).
+      Em conformidade com a Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018) e o Marco Civil da Internet (Lei nº 12.965/2014).
     </div>
   </footer>
 
+  <a href="#" class="back-to-top" aria-label="Voltar ao topo">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
   <script>
-    const options = { day: '2-digit', month: 'long', year: 'numeric' };
-    document.getElementById('updateDate').textContent = new Date().toLocaleDateString('pt-BR', options);
+    document.addEventListener('DOMContentLoaded', function() {
+      // --- Tooltip Funcionalidade ---
+      const tooltipContainers = document.querySelectorAll('.tooltip-container');
 
-    document.querySelectorAll('a[target="_blank"]').forEach(link => {
-      link.addEventListener('click', e => {
-        if (link.closest('.link-item-wrapper') && e.target.classList.contains('tooltip-icon')) {
-            return;
+      tooltipContainers.forEach(container => {
+        const trigger = container.querySelector('.tooltip__trigger');
+        const content = container.querySelector('.tooltip__content');
+
+        if (trigger && content) {
+          trigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const isActive = container.classList.contains('active');
+
+            // Fecha todos os outros tooltips
+            document.querySelectorAll('.tooltip-container.active').forEach(tc => {
+              if (tc !== container) {
+                tc.classList.remove('active');
+                tc.querySelector('.tooltip__trigger').setAttribute('aria-expanded', 'false');
+              }
+            });
+            
+            // Alterna o tooltip atual
+            container.classList.toggle('active');
+            trigger.setAttribute('aria-expanded', container.classList.contains('active').toString());
+          });
         }
-        const confirmLeave = confirm(`Você está prestes a sair do SISAC para acessar o seguinte endereço:\n${link.href}\n\nDeseja continuar?`);
-        if (!confirmLeave) e.preventDefault();
       });
-    });
 
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-    }
-
-    function toggleTooltip(tooltipId, iconElement) {
-      var tooltip = document.getElementById(tooltipId);
-      var computedStyle = window.getComputedStyle(tooltip);
-
-      document.querySelectorAll('.custom-tooltip').forEach(function(otherTooltip) {
-          if (otherTooltip.id !== tooltipId) { 
-              otherTooltip.style.display = 'none';
-          }
+      // Fecha tooltips ao clicar fora
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.tooltip-container')) {
+          document.querySelectorAll('.tooltip-container.active').forEach(tc => {
+            tc.classList.remove('active');
+            tc.querySelector('.tooltip__trigger').setAttribute('aria-expanded', 'false');
+          });
+        }
       });
-      
-      if (computedStyle.display === 'block') {
-        tooltip.style.display = 'none';
-      } else {
-        tooltip.style.display = 'block';
+
+      // Fecha tooltips ao pressionar Esc
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' || e.key === 'Esc') { // "Esc" para navegadores mais antigos
+          document.querySelectorAll('.tooltip-container.active').forEach(tc => {
+            tc.classList.remove('active');
+            tc.querySelector('.tooltip__trigger').setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+
+      // --- Ano Atual no Rodapé ---
+      const currentYearSpan = document.getElementById('currentYear');
+      if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
       }
-      event.stopPropagation(); 
-    }
 
-    document.addEventListener('click', function(event) {
-        const tooltips = document.querySelectorAll('.custom-tooltip');
-        const tooltipIcons = document.querySelectorAll('.tooltip-icon');
-        
-        let clickedOnAnIcon = false;
-        tooltipIcons.forEach(icon => {
-            if (icon.contains(event.target)) {
-                clickedOnAnIcon = true;
+      // --- Botão Voltar ao Topo ---
+      const backToTopButton = document.querySelector('.back-to-top');
+      if (backToTopButton) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Mostra o botão após rolar 300px
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
             }
         });
-
-        if (!clickedOnAnIcon) { 
-            tooltips.forEach(tooltip => {
-                if (!tooltip.contains(event.target)) {
-                    tooltip.style.display = 'none';
-                }
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-        }
+        });
+      }
+
     });
   </script>
 </body>
