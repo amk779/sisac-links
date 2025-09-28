@@ -26,6 +26,8 @@
       --warning-text-color: #856404;
       --warning-bg-color: #fff3cd;
       --danger-color: #dc3545;
+      --new-feature-color: #17a2b8; /* Azul para novidades */
+      --new-feature-bg: #d1ecf1;
 
       --font-primary: 'Roboto', 'Open Sans', sans-serif;
       --font-secondary: 'Open Sans', sans-serif;
@@ -165,6 +167,33 @@
       font-size: 1.4rem; /* Ícone do título um pouco maior */
     }
 
+    /* Seção NOVIDADES com destaque especial */
+    .novidades-section {
+      border-left: 5px solid var(--new-feature-color);
+      background: linear-gradient(135deg, var(--surface-color) 0%, var(--new-feature-bg) 100%);
+    }
+
+    .novidades-section h2 {
+      color: var(--new-feature-color);
+    }
+
+    .novidades-badge {
+      background: var(--new-feature-color);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-left: auto;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
     /* Lista de Links (Cards) */
     .link-grid {
       display: grid;
@@ -200,6 +229,30 @@
       outline-offset: 2px;
     }
 
+    /* Card especial para novidades */
+    .novidade-card {
+      border: 2px solid var(--new-feature-color);
+      background: linear-gradient(135deg, var(--surface-color) 0%, var(--new-feature-bg) 50%);
+      position: relative;
+    }
+
+    .novidade-card::before {
+      content: 'NOVO';
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      background: var(--new-feature-color);
+      color: white;
+      padding: 0.3rem 1rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 0 var(--border-radius-md) 0 var(--border-radius-md);
+    }
+
+    .novidade-card:hover {
+      border-color: var(--new-feature-color);
+      background: linear-gradient(135deg, var(--primary-color-lighter) 0%, var(--new-feature-bg) 100%);
+    }
 
     .link-card__icon {
       margin-right: 1.25rem;
@@ -209,15 +262,44 @@
       text-align: center;
       transition: var(--transition-fast);
     }
+
+    .novidade-card .link-card__icon {
+      color: var(--new-feature-color);
+      font-size: 1.8rem; /* Ícone maior para novidades */
+    }
+
     .link-card:hover .link-card__icon,
     .link-card:focus-within .link-card__icon {
       color: var(--accent-color);
       transform: scale(1.1);
     }
 
+    .novidade-card:hover .link-card__icon {
+      color: var(--new-feature-color);
+      transform: scale(1.2);
+    }
+
     .link-card__text {
       flex-grow: 1;
       font-weight: 500;
+    }
+
+    .novidade-card .link-card__text {
+      font-weight: 700;
+      color: var(--new-feature-color);
+    }
+
+    .link-card__description {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--secondary-color);
+      margin-top: 0.25rem;
+      font-weight: 400;
+    }
+
+    .novidade-card .link-card__description {
+      color: var(--new-feature-color);
+      opacity: 0.9;
     }
 
     /* Tooltip */
@@ -429,6 +511,10 @@
         align-self: center;
         margin-bottom: 0.5rem;
       }
+      .novidade-card::before {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.8rem;
+      }
     }
 
     @media (min-width: 769px) {
@@ -450,6 +536,25 @@
   </header>
 
   <main class="main-container">
+    <!-- NOVA SEÇÃO: NOVIDADES -->
+    <section class="content-section novidades-section" id="novidades-section" aria-labelledby="novidades-heading">
+      <h2 id="novidades-heading">
+        <i class="fas fa-star"></i> NOVIDADES
+        <span class="novidades-badge">ATUALIZAÇÃO</span>
+      </h2>
+      <ul class="link-grid">
+        <li>
+          <a href="calculadorahe.html" class="link-card novidade-card" target="_blank" rel="noopener noreferrer">
+            <span class="link-card__icon"><i class="fas fa-calculator"></i></span>
+            <span class="link-card__text">
+              Calculadora de Horas Extras
+              <span class="link-card__description">Calcule H.E. e V.D. com base na tabela oficial</span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
     <section class="content-section" id="consultas-online-section" aria-labelledby="consultas-online-heading">
       <h2 id="consultas-online-heading"><i class="fas fa-search-location"></i> Consultas Online</h2>
       <ul class="link-grid">
