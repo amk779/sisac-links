@@ -651,10 +651,17 @@
 
             const valores = tabelaValores[posto];
             
-            // Cálculos dos proventos
+            // CÁLCULOS CORRETOS:
+            // Hora Extra Diurna: apenas o valor base
             const totalHENormal = heNormal * valores.he[0];
+            
+            // Hora Extra Noturna: valor base + adicional noturno
             const totalHENoturna = heNoturna * (valores.he[0] + valores.he[1]);
+            
+            // Valor Diário Diurno: apenas o valor base
             const totalVDNormal = vdNormal * valores.vd[0];
+            
+            // Valor Diário Noturno: usa apenas o valor do VL-AN (já é o valor final) - CORREÇÃO AQUI
             const totalVDNoturno = vdNoturno * valores.vd[1];
             
             // Totais por categoria
